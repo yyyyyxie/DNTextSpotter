@@ -162,10 +162,10 @@ def prepare_for_dn(dn_args, tgt_weight, embedweight, batch_size, training, num_q
 
         # noise on the texts
         if texts_noise_scale > 0:
-            p = torch.rand_like(known_texts_expand.float())  # 0～1的均匀分布，用于插值噪声
-            chosen_indice = torch.nonzero(p < (texts_noise_scale)).view(-1)  # usually half of bbox noise（一维的tensor） 选择随机的位置去插，概率为0.2左右，可能多一个少一个点
+            p = torch.rand_like(known_texts_expand.float())  # # Uniform distribution between 0 and 1, used for interpolating noise
+            chosen_indice = torch.nonzero(p < (texts_noise_scale)).view(-1)  # usually half of bbox noise
             new_texts = torch.randint_like(chosen_indice, 0, voc_size + 1)  # randomly put a new one here
-            known_texts_expand.scatter_(0, chosen_indice, new_texts)  # size=1750  散布操作，在给定位置(chosen_dice)上原地操作， 将new_label插入进指定的位置
+            known_texts_expand.scatter_(0, chosen_indice, new_texts)
             
         if ctrl_points_noise_scale > 0:
             assert known_bezier_points.shape[-1] == 2
