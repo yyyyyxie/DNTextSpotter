@@ -9,27 +9,32 @@ Improved Denoising Training</h1>
 
 **Total-Text**
 
-| Backbone |           External Data           | Det-P | Det-R | Det-F1 |         E2E-None          |         E2E-Full          | Weights |
-| :------: | :-------------------------------: | :---: | :---: | :----: | :-----------------------: | :-----------------------: | :-----: |
-|  Res-50  | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
-|  Res-50  | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
-|  Res-50  | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
-|  Res-50  | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
-|  Res-50  | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+You can use the finetuned weights from Total-Text for inference on the Inverse-Text dataset.
+
+| Backbone  |                Training Data                 | Det-P | Det-R | Det-F1 |         E2E-None          |         E2E-Full          | Weights |
+| :-------: | :------------------------------------------: | :---: | :---: | :----: | :-----------------------: | :-----------------------: | :-----: |
+|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR (pretrain) | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+|  Res-50   |            Total-Text  (finetune)            | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+|  Res-50   |               IC15 (finetune)                | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+| ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR (pretrain) | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+| ViTAEv2-S |             Total-Text(finetune)             | 91.5  | 87.0  |  89.2  | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ |         |
+
 
 
 ## Usage
 
 - ### Installation
 
-Python 3.8 + PyTorch 1.9.0 + CUDA 11.1 + Detectron2 (v0.6)
+Python 3.8 + PyTorch 2.0.1 + CUDA 11.7 + Detectron2
 
 ```
 conda create -n dnts python=3.8 -y
 conda activate dnts
-pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+cd detectron2
+pip install -e .
 pip install -r requirements.txt
-python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
+cd ..
 python setup.py build develop
 ```
 
