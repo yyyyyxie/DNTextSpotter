@@ -5,15 +5,15 @@ MODEL:
 
 DATASETS:
   TRAIN: ("totaltext_train",)
-  TEST: ("totaltext_test",("inversetext_test",)
+  TEST: ("totaltext_test","inversetext_test",)
 
 SOLVER:
   IMS_PER_BATCH: 16
-  BASE_LR: 1e-5
-  LR_BACKBONE: 1e-6
+  BASE_LR: 2e-5
+  LR_BACKBONE: 2e-6
   WARMUP_ITERS: 0
   STEPS: (8000,)  # no step
-  MAX_ITER: 6000
+  MAX_ITER: 3000
   CHECKPOINT_PERIOD: 1000
 
 TEST:

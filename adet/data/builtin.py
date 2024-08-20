@@ -17,9 +17,9 @@ metadata_pic = {
 
 _PREDEFINED_SPLITS_TEXT = {
     # 37 voc_size
-    "syntext1": ("syntext1/images", "syntext1/annotations/train_37voc.json"),
-    "syntext2": ("syntext2/images", "syntext2/annotations/train_37voc.json"),
-    "mlt": ("mlt2017/images", "mlt2017/annotations/train_37voc.json"),
+    "syntext1": ("syntext1/train_images", "syntext1/annotations/train_37voc.json"),
+    "syntext2": ("syntext2/train_images", "syntext2/annotations/train_37voc.json"),
+    "mlt": ("mlt2017/train_images", "mlt2017/annotations/train_37voc.json"),
     "totaltext_train": ("totaltext/train_images", "totaltext/train_37voc.json"),
     "ic13_train": ("ic13/train_images", "ic13/train_37voc.json"),
     "ic15_train": ("ic15/train_images", "ic15/train_37voc.json"),
@@ -27,20 +27,20 @@ _PREDEFINED_SPLITS_TEXT = {
     "textocr2": ("textocr/train_images", "textocr/train_37voc_2.json"),
 
     # 96 voc_size
-    "syntext1_96voc": ("syntext1/images", "syntext1/annotations/train_96voc.json"),
-    "syntext2_96voc": ("syntext2/images", "syntext2/annotations/train_96voc.json"),
-    "mlt_96voc": ("mlt2017/images", "mlt2017/annotations/train_96voc.json"),
+    "syntext1_96voc": ("syntext1/train_images", "syntext1/annotations/train_96voc.json"),
+    "syntext2_96voc": ("syntext2/train_images", "syntext2/annotations/train_96voc.json"),
+    "mlt_96voc": ("mlt2017/train_images", "mlt2017/annotations/train_96voc.json"),
     "totaltext_train_96voc": ("totaltext/train_images", "totaltext/train_96voc.json"),
     "ic13_train_96voc": ("ic13/train_images", "ic13/train_96voc.json"),
     "ic15_train_96voc": ("ic15/train_images", "ic15/train_96voc.json"),
-    "ctw1500_train_96voc": ("CTW1500/ctwtrain_text_image", "CTW1500/annotations/train_96voc.json"), 
-    "textocr1_96voc": ("textocr/train_images", "textocr/textocr_train_96voc_1.json"),
-    "textocr2_96voc": ("textocr/train_images", "textocr/textocr_train_96voc_2.json"),
+    "ctw1500_train_96voc": ("CTW1500/train_images", "CTW1500/annotations/train_96voc.json"), 
+    "textocr1_96voc": ("textocr/train_images", "textocr/train_96voc_1.json"),
+    "textocr2_96voc": ("textocr/train_images", "textocr/train_96voc_2.json"),
 
     # evaluation, just for reading images, annotations may be empty
     "totaltext_test": ("totaltext/test_images", "totaltext/test.json"),
     "ic15_test": ("ic15/test_images", "ic15/test.json"),
-    "ctw1500_test": ("CTW1500/ctwtest_text_image", "CTW1500/annotations/test.json"),
+    "ctw1500_test": ("CTW1500/test_images", "CTW1500/annotations/test.json"),
     "inversetext_test": ("inversetext/test_images", "inversetext/test.json"),
     "ic13_test":("ic13/test_images", "ic13/test.json")
 }
@@ -49,7 +49,7 @@ metadata_text = {
     "thing_classes": ["text"]
 }
 
-
+# 改成了其他文件夹下的数据
 def register_all_coco(root="datasets", voc_size_cfg=37, num_pts_cfg=25):
     for key, (image_root, json_file) in _PREDEFINED_SPLITS_PIC.items():
         # Assume pre-defined datasets live in `./datasets`.

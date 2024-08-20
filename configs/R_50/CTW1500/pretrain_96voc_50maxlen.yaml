@@ -34,6 +34,6 @@ SOLVER:
 
 TEST:
   EVAL_PERIOD: 10000
-  OUTPUT_DIR: "output/R50/ctw1500/pretrain_150k-tt-mlt-ic13-15_maxlen50_96voc_bs8"
+  OUTPUT_DIR: "output/R50/ctw1500/pretrain_150k-tt-mlt-ic13-15_maxlen50_96voc"
 
 
