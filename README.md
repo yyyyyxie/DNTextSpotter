@@ -63,8 +63,8 @@ conda activate dnts
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
 cd detectron2
 pip install -e .
-pip install -r requirements.txt
 cd ..
+pip install -r requirements.txt
 python setup.py build develop
 ```
 
@@ -131,6 +131,7 @@ You can find the datasets [here](https://github.com/ViTAE-Transformer/DeepSolo/t
 
 <details>
 <summary>Total-Text & ICDAR2015</summary>
+
 **1. Pre-train**
 
 For example, pre-train DNTextSpotter: 
@@ -152,6 +153,8 @@ python tools/train_net.py --config-file configs/R_50/IC15/finetune_150k_tt_mlt_1
 <summary>CTW1500</summary>
 **1. Pre-train**
 **1. Pre-train**
+**1. Pre-train**
+
 
 ```
 python tools/train_net.py --config-file configs/R_50/CTW1500/pretrain_96voc_50maxlen.yaml --num-gpus 8
