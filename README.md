@@ -149,6 +149,7 @@ python tools/train_net.py --config-file configs/R_50/TotalText/finetune_150k_tt_
 python tools/train_net.py --config-file configs/R_50/IC15/finetune_150k_tt_mlt_13_15_textocr.yaml --num-gpus 8
 ```
 
+</details>
 <details>
 <summary>CTW1500</summary>
 
@@ -164,6 +165,7 @@ python tools/train_net.py --config-file configs/R_50/CTW1500/pretrain_96voc_50ma
 ```
 python tools/train_net.py --config-file configs/R_50/CTW1500/finetune_96voc_50maxlen.yaml --num-gpus 8
 ```
+</details>
 
 - ### Evaluation
 
@@ -177,8 +179,6 @@ python tools/train_net.py --config-file ${CONFIG_FILE} --eval-only MODEL.WEIGHTS
 python demo/demo.py --config-file ${CONFIG_FILE} --input ${IMAGES_FOLDER_OR_ONE_IMAGE_PATH} --output ${OUTPUT_PATH} --opts MODEL.WEIGHTS <MODEL_PATH>
 ```
 
-
-
 ## Citation
 
 If you find DNTextSpotter helpful, please consider giving this repo a star ⭐ and citing:
@@ -191,8 +191,6 @@ If you find DNTextSpotter helpful, please consider giving this repo a star ⭐ a
   year={2024}
 }
 ```
-
-
 
 ## Acknowledgement
 
