@@ -1,51 +1,60 @@
-<h3><a href="">DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training</a></h3>
+# [ACM MM 2024] DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training
 
 <a href="https://qianqiaoai.github.io/projects/dntextspotter/"><img src="https://img.shields.io/badge/Project-Page-Green"></a>
 <a href="https://arxiv.org/abs/2408.00355"><img src="https://img.shields.io/badge/Paper-PDF-orange"></a> 
 
- [Yu Xie*](https://arxiv.org/search/cs?searchtype=author&query=Xie,+Y), [Qian Qiao*](https://arxiv.org/search/cs?searchtype=author&query=Qiao,+Q), Tianxiang Wu, Shaoyao Huang, Jiaqing Fan, Ziqiang Cao, Zili Wang, Yue Zhang, Jielei Zhang, Huyang Sun
+**Welcome!** This repository contains the code and checkpoints implementation of paper [*DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training*](https://arxiv.org/abs/2408.00355). DNTextSpotter decomposes the queries of the denoising part into noised positional and noised content queries. it uses the four Bezier control points of the Bezier center curve to generate the noised positional queries. For the noised content queries, considering that the output of the text in a fixed positional order is not conducive to aligning position with content, it employs a masked character sliding method to
+initialize noised content queries, thereby assisting in the alignment of text content and position. Additionally, to improve the model’s
+perception of the background, it further utilizes an additional loss function for background characters classification in the denoising
+training part.
 
-## Release
+![pipline](https://qianqiaoai.github.io/projects/dntextspotter/static/image/networkarch.png)
 
+
+## Highlights
+<!-- - competition -->
 - [2024/7/16] 🎉🎉🎉 DNTextSpotter is accepted by ACM'MM 2024!
 
 ## Main Results
 
-**Pre-trained Models for Total-Text & Inverse-Text & IC15**
+**1.Pre-trained Models for Total-Text & Inverse-Text & IC15**
 
 | Backbone  |                Training Data                 |                           Weights                            |
 | :-------: | :------------------------------------------: | :----------------------------------------------------------: |
 |  Res-50   | Synth150K+Total-Text+MLT17+IC13+IC15+TextOCR | [Drive](https://drive.google.com/file/d/1ya5N4gE_Sfl8yMRMYBAmjScRZrSJP7Wk/view?usp=drive_link) |
 | ViTAEv2-S | Synth150K+Total-Text+MLT17+IC13+IC15+TextOCR | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
 
-**Total-Text**
+
+**Finetune on Total-Text**
 
 | Backbone  |           External Data           | Det-P | Det-R |          Det-F1           |         E2E-None          |         E2E-Full          |                           Weights                            |
 | :-------: | :-------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
 |  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  | $\underline{\text{89.2}}$ | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ | [Drive](https://drive.google.com/file/d/1eKZvjkrqJ4ABKLGHs_4Uj2weyIc6zBm4/view?usp=drive_link) |
 | ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR | 92.9  | 88.6  |         **90.7**          |         **85.0**          |         **90.5**          | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
 
-**Inverse-Text (using the same weights as Total-Text)**
 
-| Backbone  |           External Data           | Det-P | Det-R |          Det-F1           |         E2E-None          |         E2E-Full          |                           Weights                            |
-| :-------: | :-------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
-|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 94.3  | 77.2  | $\underline{\text{84.9}}$ | $\underline{\text{75.9}}$ | $\underline{\text{81.6}}$ | [Drive](https://drive.google.com/file/d/1eKZvjkrqJ4ABKLGHs_4Uj2weyIc6zBm4/view?usp=drive_link) |
-| ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR | 95.4  | 79.2  |         **86.4**          |         **78.1**          |         **83.8**          | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
-
-**ICDAR 2015 (IC15)**
+**Finetune on ICDAR 2015 (IC15)**
 
 | Backbone  |              External Data              | Det-P | Det-R |          Det-F1           |           E2E-S           |           E2E-W           |           E2E-G           |                           Weights                            |
 | :-------: | :-------------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
 |  Res-50   | Synth150K+Total-Text+MLT17+IC13+TextOCR | 92.5  | 87.2  |           89.8            | $\underline{\text{88.7}}$ | $\underline{\text{84.3}}$ | $\underline{\text{79.9}}$ | [OneDrive](https://1drv.ms/u/s!AimBgYV7JjTlgcdonZXu6_JtW2QMuA?e=8BTzmi) |
 | ViTAEv2-S | Synth150K+Total-Text+MLT17+IC13+TextOCR | 92.4  | 87.9  | $\underline{\text{90.1}}$ |         **89.4**          |         **85.2**          |         **80.6**          | [OneDrive](https://1drv.ms/u/s!AimBgYV7JjTlgcdqw1UUnbSAG4qoWA?e=Co1prY) |
 
-**Pre-trained Model for CTW1500**
+**Inverse-Text (using the same weights as Finetune model on Total-Text)**
+
+| Backbone  |           External Data           | Det-P | Det-R |          Det-F1           |         E2E-None          |         E2E-Full          |                           Weights                            |
+| :-------: | :-------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
+|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 94.3  | 77.2  | $\underline{\text{84.9}}$ | $\underline{\text{75.9}}$ | $\underline{\text{81.6}}$ | [Drive](https://drive.google.com/file/d/1eKZvjkrqJ4ABKLGHs_4Uj2weyIc6zBm4/view?usp=drive_link) |
+| ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR | 95.4  | 79.2  |         **86.4**          |         **78.1**          |         **83.8**          | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
+
+---
+**2.Pre-trained Model for CTW1500**
 
 | Backbone |                Training Data                 |                           Weights                            |
 | :------: | :------------------------------------------: | :----------------------------------------------------------: |
 |  Res-50  | Synth150K+Total-Text+MLT17+IC13+IC15+TextOCR | [Drive](https://drive.google.com/file/d/1khGllJJeGzVxHUrnjodhNZF2bMew25XR/view?usp=drive_link) |
 
-**CTW1500**
+**Finetune on CTW1500**
 
 | Backbone |                External Data                 | Det-P | Det-R | Det-F1 | E2E-None | E2E-Full |                           Weights                            |
 | :------: | :------------------------------------------: | :---: | :---: | :----: | :------: | :------: | :----------------------------------------------------------: |
@@ -55,9 +64,13 @@
 
 - ### Installation
 
-Python 3.8 + PyTorch 2.0.1 + CUDA 11.7 + Detectron2
-
+  - Python==3.8
+  - PyTorch>=2.0.1
+  - CUDA>=11.8
+  - Detectron2
 ```
+git clone https://github.com/yyyyyxie/DNTextSpotter.git
+cd DNTextSpotter
 conda create -n dnts python=3.8 -y
 conda activate dnts
 pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
@@ -181,7 +194,9 @@ python demo/demo.py --config-file ${CONFIG_FILE} --input ${IMAGES_FOLDER_OR_ONE_
 
 ## Citation
 
-If you find DNTextSpotter helpful, please consider giving this repo a star ⭐ and citing:
+🤩 If you encounter any difficulty using our code, please do not hesitate to submit an issue or directly contact us!
+
+😍 If you do find our work helpful (or if you would be so kind as to offer us some encouragement), please consider kindly giving a star, and citing our paper.
 
 ```
 @article{xie2024dntextspotter,
@@ -189,6 +204,14 @@ If you find DNTextSpotter helpful, please consider giving this repo a star ⭐ a
   author={Xie, Yu and Qiao, Qian and Gao, Jun and Wu, Tianxiang and Huang, Shaoyao and Fan, Jiaqing and Cao, Ziqiang and Wang, Zili and Zhang, Yue and Zhang, Jielei and others},
   journal={arXiv preprint arXiv:2408.00355},
   year={2024}
+}
+```
+or
+```
+@inproceedings{qiao2024dntextspotter,
+  title={DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training},
+  author={Qiao, Qian and Xie, Yu and Gao, Jun and Wu, Tianxiang and Huang, Shaoyao and Fan, Jiaqing and Cao, Ziqiang and Wang, Zili and Zhang, Yue},
+  booktitle={ACM Multimedia 2024}
 }
 ```
 
