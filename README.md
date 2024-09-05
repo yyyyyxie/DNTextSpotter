@@ -29,7 +29,7 @@ training part.
 
 | Backbone  |           External Data           | Det-P | Det-R |          Det-F1           |         E2E-None          |         E2E-Full          |                           Weights                            |
 | :-------: | :-------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
-|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  | $\underline{\text{89.2}}$ | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ | [Drive](https://drive.google.com/file/d/1eKZvjkrqJ4ABKLGHs_4Uj2weyIc6zBm4/view?usp=drive_link) |
+|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 91.5  | 87.0  | $\underline{\text{89.2}}$ | $\underline{\text{84.5}}$ | $\underline{\text{89.8}}$ | [Drive](https://drive.google.com/file/d/1Lg75fZKS2u7xY2EBg3WWFKCVYs11MRKQ/view?usp=drive_link) |
 | ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR | 92.9  | 88.6  |         **90.7**          |         **85.0**          |         **90.5**          | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
 
 
@@ -37,14 +37,14 @@ training part.
 
 | Backbone  |              External Data              | Det-P | Det-R |          Det-F1           |           E2E-S           |           E2E-W           |           E2E-G           |                           Weights                            |
 | :-------: | :-------------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
-|  Res-50   | Synth150K+Total-Text+MLT17+IC13+TextOCR | 92.5  | 87.2  |           89.8            | $\underline{\text{88.7}}$ | $\underline{\text{84.3}}$ | $\underline{\text{79.9}}$ | [OneDrive](https://1drv.ms/u/s!AimBgYV7JjTlgcdonZXu6_JtW2QMuA?e=8BTzmi) |
+|  Res-50   | Synth150K+Total-Text+MLT17+IC13+TextOCR | 92.5  | 87.2  |           89.8            | $\underline{\text{88.7}}$ | $\underline{\text{84.3}}$ | $\underline{\text{79.9}}$ | [OneDrive](https://drive.google.com/file/d/1xwzd0qxIBLIM2rqx_S6_nBSiX-UiIrLa/view?usp=drive_link) |
 | ViTAEv2-S | Synth150K+Total-Text+MLT17+IC13+TextOCR | 92.4  | 87.9  | $\underline{\text{90.1}}$ |         **89.4**          |         **85.2**          |         **80.6**          | [OneDrive](https://1drv.ms/u/s!AimBgYV7JjTlgcdqw1UUnbSAG4qoWA?e=Co1prY) |
 
 **Inverse-Text (using the same weights as Finetune model on Total-Text)**
 
 | Backbone  |           External Data           | Det-P | Det-R |          Det-F1           |         E2E-None          |         E2E-Full          |                           Weights                            |
 | :-------: | :-------------------------------: | :---: | :---: | :-----------------------: | :-----------------------: | :-----------------------: | :----------------------------------------------------------: |
-|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 94.3  | 77.2  | $\underline{\text{84.9}}$ | $\underline{\text{75.9}}$ | $\underline{\text{81.6}}$ | [Drive](https://drive.google.com/file/d/1eKZvjkrqJ4ABKLGHs_4Uj2weyIc6zBm4/view?usp=drive_link) |
+|  Res-50   | Synth150K+MLT17+IC13+IC15+TextOCR | 94.3  | 77.2  | $\underline{\text{84.9}}$ | $\underline{\text{75.9}}$ | $\underline{\text{81.6}}$ | [Drive](https://drive.google.com/file/d/1Lg75fZKS2u7xY2EBg3WWFKCVYs11MRKQ/view?usp=drive_link) |
 | ViTAEv2-S | Synth150K+MLT17+IC13+IC15+TextOCR | 95.4  | 79.2  |         **86.4**          |         **78.1**          |         **83.8**          | [Drive](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view?usp=drive_link) |
 
 ---
