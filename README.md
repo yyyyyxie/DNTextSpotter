@@ -58,7 +58,7 @@ training part.
 
 | Backbone |                External Data                 | Det-P | Det-R | Det-F1 | E2E-None | E2E-Full |                           Weights                            |
 | :------: | :------------------------------------------: | :---: | :---: | :----: | :------: | :------: | :----------------------------------------------------------: |
-|  Res-50  | Synth150K+Total-Text+MLT17+IC13+IC15+TextOCR | 93.2  | 85.0  |  88.9  |   64.2   |   81.4   | [Drive](https://drive.google.com/file/d/1ODBueatGswUcD24M48GQL-6ZBCTdwH0D/view?usp=drive_link) |
+|  Res-50  | Synth150K+Total-Text+MLT17+IC13+IC15+TextOCR | 93.5  | 87.1  |  90.2  |   67.0   |   84.2   | [Drive](https://drive.google.com/file/d/1ODBueatGswUcD24M48GQL-6ZBCTdwH0D/view?usp=drive_link) |
 
 ## Usage
 
