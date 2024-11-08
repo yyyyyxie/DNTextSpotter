@@ -66,7 +66,7 @@ training part.
 
   - Python==3.8
   - PyTorch>=2.0.1
-  - CUDA>=11.8
+  - CUDA>=11.7
   - Detectron2
 ```
 git clone https://github.com/yyyyyxie/DNTextSpotter.git
