@@ -4,8 +4,15 @@
 
 ### Environment Settings
 
-CUDA 11.8
-Visual Studio Build Tools C++ 2019 installed
+This project is optimized for GPU (CUDA) environments but also supports CPU-only execution. If a CUDA-enabled GPU is not available, the model will automatically run on the CPU without any additional setup.
+
+**GPU (CUDA) Environment:**
+- CUDA 11.8
+- Visual Studio Build Tools C++ 2019 installed
+
+**CPU-Only Environment:**
+- No special requirements needed beyond the standard Python packages.
+
 Prepare model checkpoints
 ```
 |- ./models
