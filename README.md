@@ -9,6 +9,7 @@ This project is optimized for GPU (CUDA) environments but also supports CPU-only
 **GPU (CUDA) Environment:**
 - CUDA 11.8
 - Visual Studio Build Tools C++ 2019 installed
+    - [VS Build Tools C++ 2019 Installer](https://drive.google.com/file/d/1io_Eg6Tz2-OonKT13nbAt6LaUCDCq-im/view?usp=sharing)
 
 **CPU-Only Environment:**
 - No special requirements needed beyond the standard Python packages.
