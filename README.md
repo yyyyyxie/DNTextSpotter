@@ -70,3 +70,44 @@ texts, scores = predictor_r50(img)
 print("Recognized Texts:", texts)
 print("Confidence Scores per character:", scores)
 ```
+
+### Using as a Module in Another Project
+
+You can integrate the `Tread_Detect` project into your own project. Simply place the entire `Tread_Detect` folder inside your project directory.
+
+```
+Your_Project/
+├── your_main_script.py
+└── Tread_Detect/
+    ├── tread_detector/
+    │   ├── __init__.py
+    │   ├── predictor.py
+    │   └── ...
+    └── ...
+```
+
+Then, you can import and use the `TreadPredictor` as follows:
+
+```python
+# your_main_script.py
+from Tread_Detect.tread_detector import TreadPredictor
+import cv2
+from detectron2.data.detection_utils import read_image
+
+# Initialize the predictor
+predictor = TreadPredictor(backbone="R_50")
+
+# Load and process an image
+image_path = "path/to/your/image.jpg"
+img = read_image(image_path, format="BGR")
+texts, scores = predictor(img)
+
+print("Recognized Texts:", texts)
+print("Confidence Scores per character:", scores)
+```
+
+### Execute Demo
+
+```
+conda activate tread && python demo\demo.py --input [input_dir]
+```
