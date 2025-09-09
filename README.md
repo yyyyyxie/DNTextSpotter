@@ -29,6 +29,8 @@ config settings
 ### Install
 
 ```
+git clone https://github.com/2jungg/Tread_Detect.git
+cd Tread_Detect
 conda create -n tread python=3.8
 conda activate tread
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
