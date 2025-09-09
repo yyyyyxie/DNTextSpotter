@@ -120,7 +120,27 @@ class TreadPredictor(object):
         
         final_scores = [torch.max(score[:len(text)], dim=1)[0].tolist() for text, score in zip(decoded_texts, scores)]
 
-        return decoded_texts, final_scores
+        if not instances.has('bd'):
+            return decoded_texts, final_scores
+
+        boxes = instances.bd
+
+        combined_results = []
+        for i in range(len(recs)):
+            # Get the minimum x-coordinate from the boundary points
+            x_coordinate = boxes[i][:, 0].min().item()
+            combined_results.append((x_coordinate, decoded_texts[i], final_scores[i]))
+
+        # Sort by the x-coordinate
+        combined_results.sort(key=lambda x: x[0])
+
+        # Unpack the sorted results
+        if not combined_results:
+            return [], []
+        
+        sorted_texts, sorted_scores = zip(*[(text, score) for _, text, score in combined_results])
+
+        return list(sorted_texts), list(sorted_scores)
 
 
 class AsyncPredictor:
