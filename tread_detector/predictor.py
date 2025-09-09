@@ -19,34 +19,77 @@ from detectron2.modeling import build_model
 from detectron2.checkpoint import DetectionCheckpointer
 import detectron2.data.transforms as T
 from adet.data.augmentation import Pad
+from .config import setup_cfg
 
  
-class VisualizationDemo(object):
-    def __init__(self, cfg, instance_mode=ColorMode.IMAGE, parallel=False):
+class TreadPredictor(object):
+    def __init__(self, backbone="R_50", instance_mode=ColorMode.IMAGE, parallel=False, cpu=False):
         """
         Args:
             cfg (CfgNode):
             instance_mode (ColorMode):
             parallel (bool): whether to run the model in different processes from visualization.
                 Useful since the visualization logic can be slow.
+            cpu (bool): whether to run the model on CPU.
         """
+        self.cfg = setup_cfg(backbone)
+        if cpu:
+            self.cfg.defrost()
+            self.cfg.MODEL.DEVICE = "cpu"
+
         self.metadata = MetadataCatalog.get(
-            cfg.DATASETS.TEST[0] if len(cfg.DATASETS.TEST) else "__unused"
+            self.cfg.DATASETS.TEST[0] if len(self.cfg.DATASETS.TEST) else "__unused"
         )
-        self.cfg = cfg
         self.cpu_device = torch.device("cpu")
         self.instance_mode = instance_mode
-        self.vis_text = cfg.MODEL.TRANSFORMER.ENABLED
+        self.vis_text = self.cfg.MODEL.TRANSFORMER.ENABLED
+
+        self.voc_size = self.cfg.MODEL.TRANSFORMER.VOC_SIZE
+        if self.voc_size == 96:
+            self.CTLABELS = [' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/','0','1','2','3','4','5','6','7','8','9',':',';','<','=','>','?','@','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','[','\\',']','^','_','`','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','{','|','}','~']
+        elif self.voc_size == 37:
+            self.CTLABELS = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9']
+        else:
+            raise NotImplementedError
 
         self.parallel = parallel
         if parallel:
-            num_gpu = torch.cuda.device_count()
-            self.predictor = AsyncPredictor(cfg, num_gpus=num_gpu)
+            num_gpus = 0 if cpu else torch.cuda.device_count()
+            self.predictor = AsyncPredictor(self.cfg, num_gpus=num_gpus)
         else:
-            self.predictor = DefaultPredictor(cfg)
-        if cfg.MODEL.BACKBONE.NAME == "build_vitaev2_backbone":
-            self.predictor = ViTAEPredictor(cfg)
+            self.predictor = DefaultPredictor(self.cfg)
+        if self.cfg.MODEL.BACKBONE.NAME == "build_vitaev2_backbone":
+            self.predictor = ViTAEPredictor(self.cfg)
 
+    def _ctc_decode_recognition(self, rec):
+        if self.voc_size == 37:
+            last_char = '-'
+            s = ''
+            for c in rec:
+                c = int(c)
+                if c < self.voc_size - 1:
+                    if last_char != c:
+                        s += self.CTLABELS[c]
+                        last_char = c
+                else:
+                    last_char = '-'
+            s = s.replace('-', '')
+
+        elif self.voc_size == 96:
+            last_char = '###'
+            s = ''
+            for c in rec:
+                c = int(c)
+                if c < self.voc_size - 1:
+                    if last_char != c:
+                        s += self.CTLABELS[c]
+                        last_char = c
+                else:
+                    last_char = '###'
+
+        else:
+            raise NotImplementedError
+        return s
 
     def run_on_image(self, image):
         """
@@ -56,113 +99,53 @@ class VisualizationDemo(object):
 
         Returns:
             predictions (dict): the output of the model.
-            vis_output (VisImage): the visualized image output.
         """
-        vis_output = None
         predictions = self.predictor(image)
-        # Convert image from OpenCV BGR format to Matplotlib RGB format.
-        image = image[:, :, ::-1]
-        if self.vis_text:
-            visualizer = TextVisualizer(image, self.metadata, instance_mode=self.instance_mode, cfg=self.cfg)
-        else:
-            visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
+        return predictions
 
-        if "bases" in predictions:
-            self.vis_bases(predictions["bases"])
-        if "panoptic_seg" in predictions:
-            panoptic_seg, segments_info = predictions["panoptic_seg"]
-            vis_output = visualizer.draw_panoptic_seg_predictions(
-                panoptic_seg.to(self.cpu_device), segments_info
-            )
-        else:
-            if "sem_seg" in predictions:
-                vis_output = visualizer.draw_sem_seg(
-                    predictions["sem_seg"].argmax(dim=0).to(self.cpu_device))
-            if "instances" in predictions:
-                instances = predictions["instances"].to(self.cpu_device)
-                vis_output = visualizer.draw_instance_predictions(predictions=instances)
-
-        return predictions, vis_output
-
-    def _frame_from_video(self, video):
-        while video.isOpened():
-            success, frame = video.read()
-            if success:
-                yield frame
-            else:
-                break
-
-    def vis_bases(self, bases):
-        basis_colors = [[2, 200, 255], [107, 220, 255], [30, 200, 255], [60, 220, 255]]
-        bases = bases[0].squeeze()
-        bases = (bases / 8).tanh().cpu().numpy()
-        num_bases = len(bases)
-        fig, axes = plt.subplots(nrows=num_bases // 2, ncols=2)
-        for i, basis in enumerate(bases):
-            basis = (basis + 1) / 2
-            basis = basis / basis.max()
-            basis_viz = np.zeros((basis.shape[0], basis.shape[1], 3), dtype=np.uint8)
-            basis_viz[:, :, 0] = basis_colors[i][0]
-            basis_viz[:, :, 1] = basis_colors[i][1]
-            basis_viz[:, :, 2] = np.uint8(basis * 255)
-            basis_viz = cv2.cvtColor(basis_viz, cv2.COLOR_HSV2RGB)
-            axes[i // 2][i % 2].imshow(basis_viz)
-        plt.show()
-
-    def run_on_video(self, video):
+    def __call__(self, image):
         """
-        Visualizes predictions on frames of the input video.
-
         Args:
-            video (cv2.VideoCapture): a :class:`VideoCapture` object, whose source can be
-                either a webcam or a video file.
+            image (np.ndarray): an image of shape (H, W, C) (in BGR order).
 
-        Yields:
-            ndarray: BGR visualizations of each video frame.
+        Returns:
+            texts (list[str]): a list of recognized strings.
+            scores (list[list[float]]): a list of confidence scores for each character in each recognized string.
         """
-        video_visualizer = VideoVisualizer(self.metadata, self.instance_mode)
+        predictions = self.run_on_image(image)
+        instances = predictions["instances"].to(self.cpu_device)
 
-        def process_predictions(frame, predictions):
-            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-            if "panoptic_seg" in predictions:
-                panoptic_seg, segments_info = predictions["panoptic_seg"]
-                vis_frame = video_visualizer.draw_panoptic_seg_predictions(
-                    frame, panoptic_seg.to(self.cpu_device), segments_info
-                )
-            elif "instances" in predictions:
-                predictions = predictions["instances"].to(self.cpu_device)
-                vis_frame = video_visualizer.draw_instance_predictions(frame, predictions)
-            elif "sem_seg" in predictions:
-                vis_frame = video_visualizer.draw_sem_seg(
-                    frame, predictions["sem_seg"].argmax(dim=0).to(self.cpu_device)
-                )
+        if not instances.has('recs'):
+            return [], []
 
-            # Converts Matplotlib RGB format to OpenCV BGR format
-            vis_frame = cv2.cvtColor(vis_frame.get_image(), cv2.COLOR_RGB2BGR)
-            return vis_frame
+        recs = instances.recs
+        decoded_texts = [self._ctc_decode_recognition(rec).upper() for rec in recs]
+        
+        scores = instances.rec_scores
+        
+        final_scores = [torch.max(score[:len(text)], dim=1)[0].tolist() for text, score in zip(decoded_texts, scores)]
 
-        frame_gen = self._frame_from_video(video)
-        if self.parallel:
-            buffer_size = self.predictor.default_buffer_size
+        if not instances.has('bd'):
+            return decoded_texts, final_scores
 
-            frame_data = deque()
+        boxes = instances.bd
 
-            for cnt, frame in enumerate(frame_gen):
-                frame_data.append(frame)
-                self.predictor.put(frame)
+        combined_results = []
+        for i in range(len(recs)):
+            # Get the minimum x-coordinate from the boundary points
+            x_coordinate = boxes[i][:, 0].min().item()
+            combined_results.append((x_coordinate, decoded_texts[i], final_scores[i]))
 
-                if cnt >= buffer_size:
-                    frame = frame_data.popleft()
-                    predictions = self.predictor.get()
-                    yield process_predictions(frame, predictions)
+        # Sort by the x-coordinate
+        combined_results.sort(key=lambda x: x[0])
 
-            while len(frame_data):
-                frame = frame_data.popleft()
-                predictions = self.predictor.get()
-                yield process_predictions(frame, predictions)
-        else:
-            for frame in frame_gen:
-                yield process_predictions(frame, self.predictor(frame))
+        # Unpack the sorted results
+        if not combined_results:
+            return [], []
+        
+        sorted_texts, sorted_scores = zip(*[(text, score) for _, text, score in combined_results])
+
+        return list(sorted_texts), list(sorted_scores)
 
 
 class AsyncPredictor:
