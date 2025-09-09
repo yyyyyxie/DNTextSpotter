@@ -30,3 +30,11 @@ python setup.py build develop
 ```
 
 ## How to Use
+ResNet50 Backbone model use **96voc(include '/')**, however ViT Backbone model us **37voc(not include '/'**)
+```
+from tread_detect import predictor
+
+img = im.read()
+pred = predictor(backbone = "R_50" or backbone = "ViT")
+texts, scores = pred(img)
+```

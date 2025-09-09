@@ -1,15 +1,18 @@
 from adet.config import get_cfg
 
-def setup_cfg(args):
-    # load config from file and command-line arguments
+def setup_cfg(backbone="R_50"):
     cfg = get_cfg()
-    cfg.merge_from_file(args.config_file)
-    cfg.merge_from_list(args.opts)
-    # Set score_threshold for builtin models
-    # cfg.MODEL.RETINANET.SCORE_THRESH_TEST = args.confidence_threshold
-    # cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = args.confidence_threshold
-    # cfg.MODEL.FCOS.INFERENCE_TH_TEST = args.confidence_threshold
-    # cfg.MODEL.MEInst.INFERENCE_TH_TEST = args.confidence_threshold
-    # cfg.MODEL.PANOPTIC_FPN.COMBINE.INSTANCES_CONFIDENCE_THRESH = args.confidence_threshold
+    
+    if backbone == "R_50":
+        config_file = "configs/R_50/TotalText/finetune_150k_tt_mlt_13_15_textocr.yaml"
+        opts = ['MODEL.WEIGHTS', 'models/res50_ctw_model_pretrain.pth']
+    elif backbone == "ViT":
+        config_file = "configs/ViTAEv2_S/TotalText/finetune_150k_tt_mlt_13_15_textocr.yaml"
+        opts = ['MODEL.WEIGHTS', 'models/vitaev2_pretrain_tt_model_final.pth']
+    else:
+        raise ValueError(f"Unsupported backbone: {backbone}. Available options are 'R_50' and 'ViT'.")
+
+    cfg.merge_from_file(config_file)
+    cfg.merge_from_list(opts)
     cfg.freeze()
     return cfg
