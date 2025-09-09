@@ -21,7 +21,7 @@ import detectron2.data.transforms as T
 from adet.data.augmentation import Pad
 
  
-class VisualizationDemo(object):
+class TreadPredictor(object):
     def __init__(self, cfg, instance_mode=ColorMode.IMAGE, parallel=False):
         """
         Args:
