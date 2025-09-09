@@ -58,7 +58,11 @@ if __name__ == "__main__":
 
     if args.input:
         if os.path.isdir(args.input[0]):
-            args.input = [os.path.join(args.input[0], fname) for fname in os.listdir(args.input[0])]
+            args.input = [
+                os.path.join(args.input[0], fname)
+                for fname in os.listdir(args.input[0])
+                if fname.lower().endswith((".jpg", ".jpeg", ".png"))
+            ]
         elif len(args.input) == 1:
             args.input = glob.glob(os.path.expanduser(args.input[0]))
             assert args.input, "The input path(s) was not found"
@@ -73,7 +77,7 @@ if __name__ == "__main__":
                 )
             )
             logger.info(f"Recognized Texts: {texts}")
-            logger.info(f"Confidence Scores: {scores}")
+            logger.info(f"Confidence Scores: {[[f'{s:.4f}' for s in score] for score in scores]}")
 
             # Visualization is removed for simplicity as the new API does not return visualized output.
             # If visualization is needed, it should be implemented separately.
