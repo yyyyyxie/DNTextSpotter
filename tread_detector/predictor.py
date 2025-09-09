@@ -23,15 +23,20 @@ from .config import setup_cfg
 
  
 class TreadPredictor(object):
-    def __init__(self, backbone="R_50", instance_mode=ColorMode.IMAGE, parallel=False):
+    def __init__(self, backbone="R_50", instance_mode=ColorMode.IMAGE, parallel=False, cpu=False):
         """
         Args:
             cfg (CfgNode):
             instance_mode (ColorMode):
             parallel (bool): whether to run the model in different processes from visualization.
                 Useful since the visualization logic can be slow.
+            cpu (bool): whether to run the model on CPU.
         """
         self.cfg = setup_cfg(backbone)
+        if cpu:
+            self.cfg.defrost()
+            self.cfg.MODEL.DEVICE = "cpu"
+
         self.metadata = MetadataCatalog.get(
             self.cfg.DATASETS.TEST[0] if len(self.cfg.DATASETS.TEST) else "__unused"
         )
@@ -49,8 +54,8 @@ class TreadPredictor(object):
 
         self.parallel = parallel
         if parallel:
-            num_gpu = torch.cuda.device_count()
-            self.predictor = AsyncPredictor(self.cfg, num_gpus=num_gpu)
+            num_gpus = 0 if cpu else torch.cuda.device_count()
+            self.predictor = AsyncPredictor(self.cfg, num_gpus=num_gpus)
         else:
             self.predictor = DefaultPredictor(self.cfg)
         if self.cfg.MODEL.BACKBONE.NAME == "build_vitaev2_backbone":

@@ -54,7 +54,7 @@ if __name__ == "__main__":
     logger.info("Arguments: " + str(args))
 
     # Initialize the predictor with the specified backbone
-    predictor = TreadPredictor(backbone=args.backbone)
+    predictor = TreadPredictor(backbone=args.backbone, cpu=True)
 
     if args.input:
         if os.path.isdir(args.input[0]):
