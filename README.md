@@ -16,6 +16,9 @@ model links
 - [ResNet50 Backbone](https://drive.google.com/file/d/1khGllJJeGzVxHUrnjodhNZF2bMew25XR/view)
 - [ViTAE2_S Backbone](https://drive.google.com/file/d/19O3xB2r7Dmren2rjg0aVPCk-wFc9QJi9/view)
 
+config settings
+- change model path to absolute path in configs/R_50/tread_detect_R50.yaml and configs/ViTAEv2_S/tread_detect_ViT.yaml
+
 ### Install
 
 ```
@@ -30,11 +33,40 @@ python setup.py build develop
 ```
 
 ## How to Use
-ResNet50 Backbone model use **96voc(include '/')**, however ViT Backbone model us **37voc(not include '/'**)
-```
-from tread_detect import predictor
 
-img = im.read()
-pred = predictor(backbone = "R_50" or backbone = "ViT")
-texts, scores = pred(img)
+This project has been modularized into the `tread_detector` package for easy use.
+
+### Initialization
+
+You can initialize the `TreadPredictor` by specifying the backbone model. Supported backbones are `'R_50'` and `'ViT'`.
+
+```python
+from tread_detector import TreadPredictor
+
+# Initialize the predictor with the desired backbone
+# Default is 'R_50'
+predictor_r50 = TreadPredictor(backbone="R_50") 
+predictor_vit = TreadPredictor(backbone="ViT")
+```
+
+**Note**: The ResNet50 backbone model uses a 96-character vocabulary (including '/'), while the ViT backbone model uses a 37-character vocabulary (alphanumeric only).
+
+### Prediction
+
+Call the predictor instance with an image loaded in BGR format (e.g., using `cv2.imread` or `read_image`). It returns the recognized texts and the confidence scores for each character.
+
+```python
+import cv2
+from detectron2.data.detection_utils import read_image
+
+# Load image
+image_path = "path/to/your/image.jpg"
+img = read_image(image_path, format="BGR") # or cv2.imread(image_path)
+
+# Perform prediction
+texts, scores = predictor_r50(img)
+
+# Print results
+print("Recognized Texts:", texts)
+print("Confidence Scores per character:", scores)
 ```

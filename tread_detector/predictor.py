@@ -114,12 +114,12 @@ class TreadPredictor(object):
             return [], []
 
         recs = instances.recs
-        decoded_texts = [self._ctc_decode_recognition(rec) for rec in recs]
+        decoded_texts = [self._ctc_decode_recognition(rec).upper() for rec in recs]
         
         scores = instances.rec_scores
         
-        final_scores = [score[:len(text)].tolist() for text, score in zip(decoded_texts, scores)]
-        
+        final_scores = [torch.max(score[:len(text)], dim=1)[0].tolist() for text, score in zip(decoded_texts, scores)]
+
         return decoded_texts, final_scores
 
 

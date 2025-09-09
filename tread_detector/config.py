@@ -4,15 +4,12 @@ def setup_cfg(backbone="R_50"):
     cfg = get_cfg()
     
     if backbone == "R_50":
-        config_file = "configs/R_50/TotalText/finetune_150k_tt_mlt_13_15_textocr.yaml"
-        opts = ['MODEL.WEIGHTS', 'models/res50_ctw_model_pretrain.pth']
+        config_file = r"C:\Users\hanta\Documents\projects\Tread_Detect\configs\R_50\tread_detect_R50.yaml"
     elif backbone == "ViT":
-        config_file = "configs/ViTAEv2_S/TotalText/finetune_150k_tt_mlt_13_15_textocr.yaml"
-        opts = ['MODEL.WEIGHTS', 'models/vitaev2_pretrain_tt_model_final.pth']
+        config_file = r"C:\Users\hanta\Documents\projects\Tread_Detect\configs\ViTAEv2_S\tread_detect_ViT.yaml"
     else:
         raise ValueError(f"Unsupported backbone: {backbone}. Available options are 'R_50' and 'ViT'.")
 
     cfg.merge_from_file(config_file)
-    cfg.merge_from_list(opts)
     cfg.freeze()
     return cfg
