@@ -31,7 +31,9 @@ def get_parser():
         help="A file or directory to save output visualizations. "
         "If not given, will show output in an OpenCV window.",
     )
- 
+
+    parser.add_argument("--cpu", action="store_true", help="Use CPU")
+
     parser.add_argument(
         "--confidence-threshold",
         type=float,
@@ -54,7 +56,10 @@ if __name__ == "__main__":
     logger.info("Arguments: " + str(args))
 
     # Initialize the predictor with the specified backbone
-    predictor = TreadPredictor(backbone=args.backbone, cpu=True)
+    if args.cpu:
+        predictor = TreadPredictor(backbone=args.backbone, cpu=True)
+    else:
+        predictor = TreadPredictor(backbone=args.backbone)
 
     if args.input:
         if os.path.isdir(args.input[0]):

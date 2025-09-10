@@ -119,7 +119,7 @@ print("Confidence Scores per character:", scores)
 ### Execute Demo
 
 ```bash
-conda activate tread && python demo\demo.py --input /path/to/your/image.jpg
+conda activate tread && python demo\demo.py --input /path/to/your/image.jpg --cpu
 ```
 
 ---
