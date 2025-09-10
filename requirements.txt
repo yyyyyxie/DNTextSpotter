@@ -8,8 +8,10 @@ pillow==9.0.1
 polygon3==3.0.9.1
 rapidfuzz==2.13.7
 scipy==1.5.2
-scikit-image==0.15.0
+scikit-image
 scikit-learn==0.23.2
 shapely==2.0.0
 timm==0.5.4
 tqdm==4.53.0
+onnx
+onnxruntime

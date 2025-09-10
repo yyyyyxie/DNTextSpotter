@@ -1,0 +1,162 @@
+--- Starting TorchScript export for backbone: R_50 ---
+Setting up configuration for R_50...
+Loading model weights...
+Model loaded successfully.
+Tracing the model with TorchScript...
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\image_list.py:85: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert t.shape[:-2] == tensors[0].shape[:-2], t.shape
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:60: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for img_idx, (h, w) in enumerate(image_sizes):
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:63: TracerWarning: Converting a tensor to a Python float might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  : int(np.ceil(float(h) / self.feature_strides[idx])),
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:64: TracerWarning: Converting a tensor to a Python float might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  : int(np.ceil(float(w) / self.feature_strides[idx])),
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:177: TracerWarning: torch.as_tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  spatial_shapes = torch.as_tensor(spatial_shapes, dtype=torch.long, device=src_flatten.device)
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:320: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for lvl, (H_, W_) in enumerate(spatial_shapes):
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\functional.py:504: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\builder\windows\pytorch\aten\src\ATen\native\TensorShape.cpp:3484.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py:131: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert (input_spatial_shapes[:, 0] * input_spatial_shapes[:, 1]).sum() == Len_in
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py:141: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference_points.shape[-1] == 2:
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:121: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for lvl, (H_, W_) in enumerate(spatial_shapes):
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:133: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert proposal.shape[-1] == 8
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:502: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert query_pos is None and reference_points.shape[-1] == 2
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:508: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference_points.shape[-1] == 4:
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:512: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert reference_points.shape[-1] == 2
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:447: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert reference_points.shape[2] == tgt_inter.shape[2]
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py:265: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference.shape[-1] == 2:
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py:318: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for a, b, c, d in zip(outputs_class[:-1], outputs_text[:-1], outputs_coord[:-1], outputs_bd_coord[:-1])
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:329: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  assert len(ctrl_point_cls) == len(image_sizes)
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:337: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for scores_per_image, labels_per_image, ctrl_point_per_image, ctrl_point_text_per_image, bd, image_size in zip(
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\image_list.py:85: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert t.shape[:-2] == tensors[0].shape[:-2], t.shape
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:60: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for img_idx, (h, w) in enumerate(image_sizes):
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:63: TracerWarning: Converting a tensor to a Python float might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  : int(np.ceil(float(h) / self.feature_strides[idx])),
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:64: TracerWarning: Converting a tensor to a Python float might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  : int(np.ceil(float(w) / self.feature_strides[idx])),
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:177: TracerWarning: torch.as_tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  spatial_shapes = torch.as_tensor(spatial_shapes, dtype=torch.long, device=src_flatten.device)
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:320: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for lvl, (H_, W_) in enumerate(spatial_shapes):
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py:131: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert (input_spatial_shapes[:, 0] * input_spatial_shapes[:, 1]).sum() == Len_in
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py:141: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference_points.shape[-1] == 2:
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:121: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for lvl, (H_, W_) in enumerate(spatial_shapes):
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:133: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert proposal.shape[-1] == 8
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:502: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert query_pos is None and reference_points.shape[-1] == 2
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:508: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference_points.shape[-1] == 4:
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:512: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert reference_points.shape[-1] == 2
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py:447: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  assert reference_points.shape[2] == tgt_inter.shape[2]
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py:265: TracerWarning: Converting a tensor to a Python boolean might cause the trace to be incorrect. We can't record the data flow of Python values, so this value will be treated as a constant in the future. This means that the trace might not generalize to other inputs!
+  if reference.shape[-1] == 2:
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py:318: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for a, b, c, d in zip(outputs_class[:-1], outputs_text[:-1], outputs_coord[:-1], outputs_bd_coord[:-1])
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:329: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  assert len(ctrl_point_cls) == len(image_sizes)
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py:337: TracerWarning: Iterating over a tensor might cause the trace to be incorrect. Passing a tensor of different shape won't change the number of iterations executed (and might lead to errors or silently give incorrect results).
+  for scores_per_image, labels_per_image, ctrl_point_per_image, ctrl_point_text_per_image, bd, image_size in zip(
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+c:\users\hanta\documents\tread_detect\dntextspotter\detectron2\detectron2\structures\instances.py:147: TracerWarning: Using len to get tensor shape might cause the trace to be incorrect. Recommended usage would be tensor.shape[0]. Passing a tensor of different shape might lead to errors or silently give incorrect results.
+  return v.__len__()
+An error occurred during TorchScript export: 
+Could not export Python function call '_MSDeformAttnFunction'. Remove calls to Python functions before export. Did you forget to add @script or @script_method annotation? If this is a nn.ModuleList, add it to __constants__:
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\autograd\function.py(506): apply
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py(152): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(293): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(346): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(181): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py(244): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py(261): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+tools/export_torchscript.py(44): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\jit\_trace.py(1056): trace_module
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\jit\_trace.py(794): trace
+tools/export_torchscript.py(71): main
+tools/export_torchscript.py(97): <module>
+
+Traceback (most recent call last):
+  File "tools/export_torchscript.py", line 77, in main
+    traced_script_module.save(model_path)
+  File "C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\jit\_script.py", line 713, in save
+    return self._c.save(str(f), **kwargs)
+RuntimeError: 
+Could not export Python function call '_MSDeformAttnFunction'. Remove calls to Python functions before export. Did you forget to add @script or @script_method annotation? If this is a nn.ModuleList, add it to __constants__:
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\autograd\function.py(506): apply
+c:\users\hanta\documents\projects\tread_detect\adet\layers\ms_deform_attn.py(152): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(293): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(346): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\layers\deformable_transformer.py(181): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\model\detection_transformer.py(244): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+c:\users\hanta\documents\projects\tread_detect\adet\modeling\text_spotter.py(261): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+tools/export_torchscript.py(44): forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1488): _slow_forward
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\nn\modules\module.py(1501): _call_impl
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\jit\_trace.py(1056): trace_module
+C:\Users\hanta\.conda\envs\tread_detect\lib\site-packages\torch\jit\_trace.py(794): trace
+tools/export_torchscript.py(71): main
+tools/export_torchscript.py(97): <module>
+

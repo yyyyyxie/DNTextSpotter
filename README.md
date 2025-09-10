@@ -29,7 +29,7 @@ config settings
 
 ### Install
 
-```
+```bash
 git clone https://github.com/2jungg/Tread_Detect.git
 cd Tread_Detect
 conda create -n tread python=3.8 -y
@@ -118,6 +118,80 @@ print("Confidence Scores per character:", scores)
 
 ### Execute Demo
 
+```bash
+conda activate tread && python demo\demo.py --input /path/to/your/image.jpg
 ```
-conda activate tread && python demo\demo.py --input [input_dir]
+
+---
+
+## ONNX Optimization and Usage
+
+For improved inference performance, this project supports converting models to the ONNX format and using ONNX Runtime.
+
+### 1. Convert to ONNX and Quantize
+
+First, convert the PyTorch models to the ONNX format and apply quantization for further optimization.
+
+```bash
+# Activate conda environment
+conda activate tread
+
+# Run the export script (converts both R_50 and ViT models)
+python tools/export_onnx.py
+
+# Run the quantization script
+python tools/quantize_onnx.py
+```
+This will create `r50_model.onnx`, `vit_model.onnx`, and their quantized versions (`*.quant.onnx`) in the `./models/` directory.
+
+### 2. Using the ONNX Predictor
+
+The `TreadPredictorONNX` class is provided for inference with ONNX models.
+
+#### Initialization
+
+Initialize `TreadPredictorONNX` by specifying the backbone and whether to use the quantized model.
+
+```python
+from tread_detector.predictor_onnx import TreadPredictorONNX
+
+# Initialize with the quantized R_50 model (default)
+predictor_onnx = TreadPredictorONNX(backbone="R_50", quantized=True)
+
+# Initialize with the non-quantized ViT model
+predictor_vit_onnx = TreadPredictorONNX(backbone="ViT", quantized=False)
+```
+
+#### Prediction
+
+The prediction process is the same as the original `TreadPredictor`.
+
+```python
+import cv2
+
+# Load image
+image_path = "path/to/your/image.jpg"
+img = cv2.imread(image_path)
+
+# Perform prediction
+texts, scores = predictor_onnx(img)
+
+# Print results
+print("Recognized Texts:", texts)
+print("Confidence Scores per character:", scores)
+```
+
+### 3. Execute ONNX Demo
+
+Use the `demo_onnx.py` script to test the ONNX predictor from the command line.
+
+```bash
+# Activate conda environment
+conda activate tread
+
+# Run with the quantized R_50 model (default)
+python demo/demo_onnx.py --input /path/to/your/image
+
+# Run with the non-quantized ViT model on CPU
+python demo/demo_onnx.py --backbone ViT --no-quantized --cpu --input /path/to/your/image
 ```

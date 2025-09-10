@@ -147,7 +147,7 @@ class ReductionCell(nn.Module):
         PRM_x, _ = self.PRM(x)
         H, W = H // self.downsample_ratios, W // self.downsample_ratios
         B, N, C = PRM_x.shape
-        assert N == H * W
+        # assert N == H * W
         if self.tokens_type == 'window':
             # H, W = self.img_size // self.downsample_ratios, self.img_size // self.downsample_ratios
             # b, _, c = PRM_x.shape

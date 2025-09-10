@@ -88,7 +88,7 @@ class BasicLayer(nn.Module):
         for nc in self.NC:
             nc.H = h
             nc.W = w
-            if self.use_checkpoint:
+            if self.use_checkpoint and self.training:
                 x = checkpoint.checkpoint(nc, x)
             else:
                 x = nc(x)
