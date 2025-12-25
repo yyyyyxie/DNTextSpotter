@@ -198,15 +198,7 @@ python demo/demo.py --config-file ${CONFIG_FILE} --input ${IMAGES_FOLDER_OR_ONE_
 
 😍 If you do find our work helpful (or if you would be so kind as to offer us some encouragement), please consider kindly giving a star, and citing our paper.
 
-```
-@article{xie2024dntextspotter,
-  title={DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training},
-  author={Xie, Yu and Qiao, Qian and Gao, Jun and Wu, Tianxiang and Huang, Shaoyao and Fan, Jiaqing and Cao, Ziqiang and Wang, Zili and Zhang, Yue and Zhang, Jielei and others},
-  journal={arXiv preprint arXiv:2408.00355},
-  year={2024}
-}
-```
-or
+
 ```
 @inproceedings{qiao2024dntextspotter,
   title={DNTextSpotter: Arbitrary-Shaped Scene Text Spotting via Improved Denoising Training},
