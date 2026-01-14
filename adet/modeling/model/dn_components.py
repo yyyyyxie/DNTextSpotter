@@ -535,13 +535,13 @@ def character_sliding(input_tensor, padding_value=37):
         repeat_counts = torch.cat([torch.full((k,), t + 1).cuda(), torch.full((n_valid - k,), t).cuda()])  # tensor([4, 4, 4, 4, 3, 3, 3])
         input_tensor[idx] = torch.repeat_interleave(non_padding_elements, repeat_counts)
 
-    input_tensor = process_continuous_sequence(input_tensor)
+    input_tensor = process_continuous_sequence(input_tensor, padding_value=padding_value)
     return input_tensor
 
 
-def process_continuous_sequence(tensor):
-    result = torch.zeros_like(tensor)  
 
+def process_continuous_sequence(tensor, padding_value=37):  # 
+    result = torch.full_like(tensor, padding_value)  # 
     for p in range(tensor.size(0)):
         i = 0
         while i < tensor.size(1):
